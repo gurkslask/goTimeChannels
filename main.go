@@ -28,23 +28,27 @@ func (tc timeChannel) checkstate(timeNow time.Time) (bool, error) {
 	}
 	sort.Sort(thisWeekDayTimePoints)
 	for index, timePoint := range thisWeekDayTimePoints {
+		//  fmt.Printf("%v > %v \n", timePoint.getDaySecond(), daySecondNow)
 		if timePoint.getDaySecond() > daySecondNow {
 			return thisWeekDayTimePoints[index-1].state, nil
 		}
+	}
+	if thisWeekDayTimePoints[len(thisWeekDayTimePoints)-1].getDaySecond() < daySecondNow {
+		return thisWeekDayTimePoints[len(thisWeekDayTimePoints)-1].state, nil
 	}
 	return false, nil
 }
 
 type timePoint struct {
-	weekDay time.Weekday
-	hour    int
-	minute  int
-	second  int
-	state   bool
+	weekDay time.Weekday "json:'weekday'"
+	hour    int          "json:hour"
+	minute  int          "json:minute"
+	second  int          "json:second"
+	state   bool         "json:state"
 }
 
-func newtimePoint(weekDay, hour, minute, second int, state bool) *timePoint {
-	return &timePoint{
+func newtimePoint(weekDay, hour, minute, second int, state bool) timePoint {
+	return timePoint{
 		weekDay: time.Weekday(weekDay),
 		hour:    hour,
 		minute:  minute,
@@ -53,9 +57,6 @@ func newtimePoint(weekDay, hour, minute, second int, state bool) *timePoint {
 	}
 }
 
-func daySecond(hour, minute, second int) int {
-	return (hour*3600 + minute*60 + second)
-}
 func (tp timePoint) getDaySecond() int {
 	return daySecond(tp.hour, tp.minute, tp.second)
 }
