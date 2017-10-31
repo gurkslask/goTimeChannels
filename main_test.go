@@ -48,7 +48,7 @@ func TestMax(t *testing.T) {
 }
 
 func TestTimechannel(t *testing.T) {
-	var tc timeChannel
+	var tc timePoints
 	tc = append(tc, newtimePoint(1, 2, 2, 2, false))
 	tc = append(tc, newtimePoint(1, 1, 1, 1, true))
 	tc = append(tc, newtimePoint(1, 3, 3, 3, true))
