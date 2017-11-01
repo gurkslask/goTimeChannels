@@ -1,0 +1,33 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    width: 100%;
+}
+
+.container {
+    padding: 20px;
+}
+
+.dark {
+    background-color: #333;
+    color: #fff;
+}
+
+.light {
+    background-color: #f1f1f1;
+    color: #333;
+}
+
+.lmenu {
+    background-color: #a1a1a1;
+    width: 10%;
+    float: left;
+    padding: 1px;
+}
+
+.hmenu {
+    background-color: #c5c5c5;
+    width: 50%;
+    float: right;
+    padding: 1px;
+}
