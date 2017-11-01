@@ -48,33 +48,34 @@ func TestMax(t *testing.T) {
 }
 
 func TestTimechannel(t *testing.T) {
-	var tc timePoints
-	tc = append(tc, newtimePoint(1, 2, 2, 2, false))
-	tc = append(tc, newtimePoint(1, 1, 1, 1, true))
-	tc = append(tc, newtimePoint(1, 3, 3, 3, true))
-	tc = append(tc, newtimePoint(2, 0, 0, 1, true))
+	tcs := inittimeChannels()
+	tcs.newtimeChannel("test")
+	tcs.Tcs["test"].Timepoints.newtimePoint(1, 2, 2, 2, false)
+	tcs.Tcs["test"].Timepoints.newtimePoint(1, 1, 1, 1, true)
+	tcs.Tcs["test"].Timepoints.newtimePoint(1, 3, 3, 3, true)
+	tcs.Tcs["test"].Timepoints.newtimePoint(2, 0, 0, 1, true)
 
-	state, _ := tc.checkstate(time.Date(2017, 10, 23, 2, 2, 3, 0, time.UTC))
+	_ = tcs.Tcs["test"].checkstate(time.Date(2017, 10, 23, 2, 2, 3, 0, time.UTC))
 	want := false
-	if state != want {
-		t.Errorf("Got %v, wanted %v", state, want)
+	if tcs.Tcs["test"].output != want {
+		t.Errorf("Got %v, wanted %v", tcs.Tcs["test"].output, want)
 	}
 
-	state, _ = tc.checkstate(time.Date(2017, 10, 23, 1, 1, 3, 0, time.UTC))
+	_ = tcs.Tcs["test"].checkstate(time.Date(2017, 10, 23, 1, 1, 3, 0, time.UTC))
 	want = true
-	if state != want {
-		t.Errorf("Got %v, wanted %v", state, want)
+	if tcs.Tcs["test"].output != want {
+		t.Errorf("Got %v, wanted %v", tcs.Tcs["test"].output, want)
 	}
 
-	state, _ = tc.checkstate(time.Date(2017, 10, 23, 23, 1, 3, 0, time.UTC))
+	_ = tcs.Tcs["test"].checkstate(time.Date(2017, 10, 23, 23, 1, 3, 0, time.UTC))
 	want = true
-	if state != want {
-		t.Errorf("Got %v, wanted %v", state, want)
+	if tcs.Tcs["test"].output != want {
+		t.Errorf("Got %v, wanted %v", tcs.Tcs["test"].output, want)
 	}
 
-	state, _ = tc.checkstate(time.Date(2017, 10, 24, 23, 1, 3, 0, time.UTC))
+	_ = tcs.Tcs["test"].checkstate(time.Date(2017, 10, 24, 23, 1, 3, 0, time.UTC))
 	want = true
-	if state != want {
-		t.Errorf("Got %v, wanted %v", state, want)
+	if tcs.Tcs["test"].output != want {
+		t.Errorf("Got %v, wanted %v", tcs.Tcs["test"].output, want)
 	}
 }

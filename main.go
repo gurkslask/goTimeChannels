@@ -15,6 +15,5 @@ func main() {
 	if err != nil {
 		log.Fatalf("%v", err)
 	}
-	electronrun()
 
 }
